@@ -83,8 +83,9 @@ func PackFiles(paths []string) ([]byte, error) {
 }
 
 // UnpackFiles decompresses and unarchives the gzipped tarball passed in
-// as data and uncompresses it to the top-level directory given.
-func UnpackFiles(in []byte, top string) error {
+// as data and uncompresses it to the top-level directory given. If
+// unpack is false, only file names will be listed.
+func UnpackFiles(in []byte, top string, unpack bool) error {
 	buf := sbuf.NewBufferFrom(in)
 	zbuf, err := gzip.NewReader(buf)
 	if err != nil {
@@ -102,8 +103,12 @@ func UnpackFiles(in []byte, top string) error {
 			return err
 		}
 
-		if Verbose {
+		if Verbose || !unpack {
 			fmt.Println(hdr.Name)
+		}
+
+		if !unpack {
+			continue
 		}
 
 		filePath := filepath.Clean(filepath.Join(top, hdr.Name))

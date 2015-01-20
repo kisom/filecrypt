@@ -47,6 +47,7 @@ func main() {
 	help := flag.Bool("h", false, "print a short usage message")
 	out := flag.String("o", "", "output path")
 	flag.BoolVar(&quiet, "q", false, "do not print any additional output")
+	list := flag.Bool("t", false, "list files")
 	unpack := flag.Bool("u", false, "unpack files instead of packing them")
 	flag.BoolVar(&archive.Verbose, "v", false, "enable verbose logging")
 	extract := flag.Bool("x", false, "extract .tgz from archive")
@@ -75,7 +76,7 @@ func main() {
 	var pass []byte
 	var err error
 
-	if !(*unpack || *extract) {
+	if !(*unpack || *extract || *list) {
 		for {
 			pass, err = readpass.PasswordPromptBytes("Archive password: ")
 			dieIf(err)
@@ -98,7 +99,7 @@ func main() {
 	}
 
 	start := time.Now()
-	if *unpack || *extract {
+	if *unpack || *extract || *list {
 		if flag.NArg() != 1 {
 			dieWith("only one file may unpacked at a time.")
 		}
@@ -113,7 +114,9 @@ func main() {
 
 		if *unpack {
 			print("Unpacking files...")
-			err = archive.UnpackFiles(in, *out)
+			err = archive.UnpackFiles(in, *out, true)
+		} else if *list {
+			err = archive.UnpackFiles(in, *out, false)
 		} else {
 			print("Extracting .tgz...")
 			err = ioutil.WriteFile(*out, in, 0644)
@@ -142,7 +145,7 @@ func usage() {
 Released under the ISC license.
 
 Usage:
-%s [-h] [-o filename] [-q] [-u] [-v] [-x] files...
+%s [-h] [-o filename] [-q] [-t] [-u] [-v] [-x] files...
 
 	-h 		Print this help message.
 
@@ -159,6 +162,9 @@ Usage:
 
 	-q		Quiet mode. Only print errors and password prompt.
 			This will override the verbose flag.
+
+	-t		List files in the archive. This acts like the list
+			flag in tar.
 
 	-u		Unpack the archive listed on the command line. Only
 			one archive may be unpacked.

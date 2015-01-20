@@ -53,7 +53,7 @@ this. Dictionary attacks will also be expensive for these same reasons.
 ## Usage
 
 ```
-filecrypt [-h] [-o filename] [-q] [-u] [-v] [-x] files...
+filecrypt [-h] [-o filename] [-q] [-t] [-u] [-v] [-x] files...
 
         -h              Print this help message.
 
@@ -70,6 +70,9 @@ filecrypt [-h] [-o filename] [-q] [-u] [-v] [-x] files...
 
         -q              Quiet mode. Only print errors and password prompt.
                         This will override the verbose flag.
+
+	-t		List files in the archive. This acts like the list
+			flag in tar.
 
         -u              Unpack the archive listed on the command line. Only
                         one archive may be unpacked.
