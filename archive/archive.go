@@ -4,13 +4,14 @@ package archive
 
 import (
 	"archive/tar"
-	"bytes"
 	"compress/gzip"
 	"errors"
 	"fmt"
 	"io"
 	"os"
 	"path/filepath"
+
+	"github.com/kisom/sbuf"
 )
 
 // Verbose determines whether to print paths as they are packed.
@@ -20,7 +21,7 @@ var Verbose = true
 // archive is gzipped with maximum compression.
 func PackFiles(paths []string) ([]byte, error) {
 	// Create a buffer to write our archive to.
-	buf := new(bytes.Buffer)
+	buf := sbuf.NewBuffer(0)
 
 	zbuf, err := gzip.NewWriterLevel(buf, gzip.BestCompression)
 	if err != nil {
@@ -84,7 +85,7 @@ func PackFiles(paths []string) ([]byte, error) {
 // UnpackFiles decompresses and unarchives the gzipped tarball passed in
 // as data and uncompresses it to the top-level directory given.
 func UnpackFiles(in []byte, top string) error {
-	buf := bytes.NewBuffer(in)
+	buf := sbuf.NewBufferFrom(in)
 	zbuf, err := gzip.NewReader(buf)
 	if err != nil {
 		return err
