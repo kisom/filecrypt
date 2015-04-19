@@ -5,7 +5,6 @@ package crypto
 import (
 	"crypto/rand"
 	"errors"
-	"io"
 
 	"golang.org/x/crypto/scrypt"
 
@@ -25,14 +24,14 @@ const (
 
 func randBytes(size int) ([]byte, error) {
 	r := make([]byte, size)
-	_, err := io.ReadFull(rand.Reader, r)
+	_, err := rand.Read(r)
 	return r, err
 }
 
 // generateNonce creates a new random nonce.
 func generateNonce() (*[nonceSize]byte, error) {
 	nonce := new([nonceSize]byte)
-	_, err := io.ReadFull(rand.Reader, nonce[:])
+	_, err := rand.Read(nonce[:])
 	if err != nil {
 		return nil, err
 	}
