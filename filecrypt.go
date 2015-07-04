@@ -45,6 +45,7 @@ func dieWith(fs string, args ...interface{}) {
 
 func main() {
 	help := flag.Bool("h", false, "print a short usage message")
+	lower := flag.Bool("l", false, "use the lower scrypt settings")
 	out := flag.String("o", "", "output path")
 	flag.BoolVar(&quiet, "q", false, "do not print any additional output")
 	list := flag.Bool("t", false, "list files")
@@ -56,6 +57,10 @@ func main() {
 	if *help || flag.NArg() == 0 {
 		usage()
 		return
+	}
+
+	if *lower {
+		crypto.Iterations = crypto.IterationsLow
 	}
 
 	if *unpack && *extract {

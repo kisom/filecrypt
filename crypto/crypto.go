@@ -22,6 +22,20 @@ const (
 	saltSize = 32
 )
 
+var (
+	// IterationsHigh is the recommended number of iterations for
+	// file encryption according to the scrypt docs.
+	IterationsHigh = 1048576
+
+	// IterationsLow is twice the number of iterations for interactive
+	// encryption as specified in the scrypt docs.
+	IterationsLow  = 32768
+
+	// Iterations contains the number of iterations to be used by
+	// filecrypt; the default is the standard filecrypt number.
+	Iterations     = IterationsHigh
+)
+
 func randBytes(size int) ([]byte, error) {
 	r := make([]byte, size)
 	_, err := rand.Read(r)
@@ -85,7 +99,7 @@ func deriveKey(pass, salt []byte) *[keySize]byte {
 	var naclKey = new([keySize]byte)
 
 	// Key only fails with invalid scrypt params.
-	key, _ := scrypt.Key(pass, salt, 1048576, 8, 1, keySize)
+	key, _ := scrypt.Key(pass, salt, Iterations, 8, 1, keySize)
 
 	copy(naclKey[:], key)
 	Zero(key)
