@@ -6,9 +6,8 @@ import (
 	"crypto/rand"
 	"errors"
 
+	"golang.org/x/crypto/nacl/secretbox"
 	"golang.org/x/crypto/scrypt"
-
-	"code.google.com/p/go.crypto/nacl/secretbox"
 )
 
 const (
@@ -29,11 +28,11 @@ var (
 
 	// IterationsLow is twice the number of iterations for interactive
 	// encryption as specified in the scrypt docs.
-	IterationsLow  = 32768
+	IterationsLow = 32768
 
 	// Iterations contains the number of iterations to be used by
 	// filecrypt; the default is the standard filecrypt number.
-	Iterations     = IterationsHigh
+	Iterations = IterationsHigh
 )
 
 func randBytes(size int) ([]byte, error) {
