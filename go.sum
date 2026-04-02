@@ -1,0 +1,10 @@
+github.com/gokyle/readpass v0.0.0-20150812192153-d7e39d2c89f5 h1:ix8IeufOUMjAq+JRyWZeHybxl6cjDcLj6l87jn4PGzo=
+github.com/gokyle/readpass v0.0.0-20150812192153-d7e39d2c89f5/go.mod h1:a1ng7o2dg1Q/Pn7zUkAZ8cxv+XDkjWcddLVxlmWjTVc=
+github.com/kisom/sbuf v0.0.0-20161123013841-ea5d425aa1e6 h1:8HpVlIOffFRr0oG0+pnM8kreJX/wP/fek6gRlL4QpEQ=
+github.com/kisom/sbuf v0.0.0-20161123013841-ea5d425aa1e6/go.mod h1:yLQNi2sshbBYYVEN80oJSKzvuaiSgzh6cXRDjly/vig=
+golang.org/x/crypto v0.41.0 h1:WKYxWedPGCTVVl5+WHSSrOBT0O8lx32+zxmHxijgXp4=
+golang.org/x/crypto v0.41.0/go.mod h1:pO5AFd7FA68rFak7rOAGVuygIISepHftHnr8dr6+sUc=
+golang.org/x/sys v0.35.0 h1:vz1N37gP5bs89s7He8XuIYXpyY0+QlsKmzipCbUtyxI=
+golang.org/x/sys v0.35.0/go.mod h1:BJP2sWEmIv4KK5OTEluFJCKSidICx8ciO85XgH3Ak8k=
+golang.org/x/term v0.34.0 h1:O/2T7POpk0ZZ7MAzMeWFSg6S5IpWd/RXDlM9hgM3DR4=
+golang.org/x/term v0.34.0/go.mod h1:5jC53AEywhIVebHgPVeg0mj8OD3VO9OzclacVrqpaAw=
